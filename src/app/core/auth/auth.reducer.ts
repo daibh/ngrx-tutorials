@@ -1,4 +1,4 @@
-import { MainMenuItems } from 'src/app/shared/menu-items/menu-items';
+import { MainMenuItems } from '../../shared/menu-items/menu-items';
 import { AuthActions, AuthActionTypes } from './auth.actions';
 import { AuthState } from './auth.models';
 

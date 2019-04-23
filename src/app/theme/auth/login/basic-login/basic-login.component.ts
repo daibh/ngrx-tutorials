@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/core/core.state';
-import { ActionAuthenticate } from 'src/app/core/auth/auth.actions';
+import { AppState } from '../../../../core/core.state';
+import { ActionAuthenticate } from '../../../../core/auth/auth.actions';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { selectIsAuthenticated, selectError } from 'src/app/core/auth/auth.selectors';
+import { selectIsAuthenticated, selectError } from '../../../../core/auth/auth.selectors';
 
 @Component({
   selector: 'app-basic-login',

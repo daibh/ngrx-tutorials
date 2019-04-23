@@ -9,7 +9,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { ActionAuthenticate, ActionAuthenticateError, ActionAuthenticateSuccess, ActionAuthLogin, ActionAuthLogout, ActionFetchAccount, ActionFetchAccountError, ActionFetchAccountMenu, ActionFetchAccountMenuError, ActionFetchAccountMenuSuccess, ActionFetchAccountSuccess, ActionLoginSuccess, AuthActionTypes, ActionAddOrActiveTab, ActionRemoveTab } from './auth.actions';
 import { AuthService } from './auth.service';
 import { AUTH_KEY, AUTH_TOKEN, AUTH_ACCOUNT, AUTH_MENU, AUTH_TABS } from './auth.constants';
-import { MainMenuItems } from 'src/app/shared/menu-items/menu-items';
+import { MainMenuItems } from '../../shared/menu-items/menu-items';
 
 @Injectable()
 export class AuthEffects {

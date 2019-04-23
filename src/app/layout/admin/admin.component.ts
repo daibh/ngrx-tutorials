@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/core/core.state';
+import { AppState } from '../../core/core.state';
 
 @Component({
   selector: 'app-admin',

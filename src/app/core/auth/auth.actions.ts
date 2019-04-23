@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Action } from '@ngrx/store';
-import { MainMenuItems } from 'src/app/shared/menu-items/menu-items';
-import { ICredentials } from 'src/app/shared/model/credentials.model';
-import { IUser } from 'src/app/shared/model/user.model';
+import { MainMenuItems } from '../../shared/menu-items/menu-items';
+import { ICredentials } from '../../shared/model/credentials.model';
+import { IUser } from '../../shared/model/user.model';
 
 export enum AuthActionTypes {
   LOGIN = '[Auth] Login',

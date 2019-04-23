@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SERVER_API_URL, API_ACCOUNT_LOGIN, API_ACCOUNT_GET_USER, API_ACCOUNT_GET_MENU_LIST } from 'src/app/app.constant';
-import { MainMenuItems } from 'src/app/shared/menu-items/menu-items';
-import { ICredentials } from 'src/app/shared/model/credentials.model';
-import { IUser } from 'src/app/shared/model/user.model';
+import { SERVER_API_URL, API_ACCOUNT_LOGIN, API_ACCOUNT_GET_USER, API_ACCOUNT_GET_MENU_LIST } from '../../app.constant';
+import { MainMenuItems } from '../../shared/menu-items/menu-items';
+import { ICredentials } from '../../shared/model/credentials.model';
+import { IUser } from '../../shared/model/user.model';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AUTH_KEY, AUTH_TOKEN } from './auth.constants';
-import { parseJwt } from 'src/app/shared/util/common.util';
+import { parseJwt } from '../../shared/util/common.util';
 import { Store } from '@ngrx/store';
 import { ActionAuthLogout } from './auth.actions';
 

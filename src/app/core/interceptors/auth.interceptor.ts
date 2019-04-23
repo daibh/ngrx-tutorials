@@ -9,8 +9,8 @@ import {
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AUTH_TOKEN } from '../auth/auth.constants';
-import { SERVER_API_URL } from 'src/app/app.constant';
-import { isDefinedProp } from 'src/app/shared/util/common.util';
+import { SERVER_API_URL } from '../../app.constant';
+import { isDefinedProp } from '../../shared/util/common.util';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/core/core.state';
+import { AppState } from '../../../core/core.state';
 import { Observable } from 'rxjs';
-import { selectMenu, selectTab, selectActivedTab } from 'src/app/core/auth/auth.selectors';
-import { ActionRemoveTab, ActionActiveTab } from 'src/app/core/auth/auth.actions';
+import { selectMenu, selectTab, selectActivedTab } from '../../../core/auth/auth.selectors';
+import { ActionRemoveTab, ActionActiveTab } from '../../../core/auth/auth.actions';
 
 @Component({
   selector: 'app-single-page-on',

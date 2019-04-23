@@ -1,5 +1,5 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import { AppState } from 'src/app/core/core.state';
+import { AppState } from '../../core/core.state';
 import { UserState, userReducer } from './single-page-on/tabs/reducers/user.reducer';
 
 
