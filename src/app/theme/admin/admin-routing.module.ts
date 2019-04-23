@@ -15,7 +15,7 @@ const routes: Routes = [
         loadChildren: './single-page-on/single-page-on.module#SinglePageOnModule'
       }
     ],
-    canActivate: [AuthGuardService]
+    canActivate: []
   }
 ];
 
