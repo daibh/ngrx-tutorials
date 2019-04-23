@@ -1,4 +1,35 @@
 <div>
   <button (click)="doAddNew($event)">Thêm mới</button>
 </div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">username</th>
+      <th scope="col">name</th>
+      <th scope="col">email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of (user$ | async)">
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.username }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </tbody>
+</table>
+<ngb-pagination *ngIf="(pagination$ | async) as pagination" [collectionSize]="pagination.totalRecord"
+  [(page)]="pagination.page" [pageSize]="pagination.pageSize" [boundaryLinks]="true" [ellipses]="false" [maxSize]="5"
+  aria-label="Custom pagination" (pageChange)="onPageChange($event)">
+  <ng-template ngbPaginationFirst>First</ng-template>
+  <ng-template ngbPaginationLast>Last</ng-template>
+  <ng-template ngbPaginationPrevious>Prev</ng-template>
+  <ng-template ngbPaginationNext>Next</ng-template>
+  <ng-template ngbPaginationEllipsis>...</ng-template>
+  <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+</ngb-pagination>
+<hr>
+
+<pre *ngIf="(pagination$ | async) as pagination">Current page: {{pagination.page}}</pre>
 <router-outlet name="popup"></router-outlet>

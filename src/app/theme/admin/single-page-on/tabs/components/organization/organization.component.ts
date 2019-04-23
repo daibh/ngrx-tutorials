@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./organization.component.css']
 })
 export class OrganizationComponent implements OnInit {
-
+  page = 4;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onPageChange = $event => {
+    console.log($event);
   }
 
 }
