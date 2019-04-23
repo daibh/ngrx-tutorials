@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../core/core.state';
-import { ActionAddOrActiveTab } from 'src/app/core/auth/auth.actions';
-import { MenuItems, MainMenuItems } from 'src/app/shared/menu-items/menu-items';
+import { ActionAddOrActiveTab } from '../../core/auth/auth.actions';
+import { MenuItems, MainMenuItems } from '../../shared/menu-items/menu-items';
 import { Observable } from 'rxjs';
-import { selectMenu } from 'src/app/core/auth/auth.selectors';
+import { selectMenu } from '../../core/auth/auth.selectors';
 
 @Component({
   selector: 'app-admin',
