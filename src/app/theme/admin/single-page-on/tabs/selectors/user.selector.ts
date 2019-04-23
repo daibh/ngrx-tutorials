@@ -12,6 +12,11 @@ export const selectUserData = createSelector(
     (state: UserState) => state.users
 );
 
+export const selectLoading = createSelector(
+    selectUser,
+    (state: UserState) => state.isLoading
+);
+
 export const selectUserPagination = createSelector(
     selectUser,
     (state: UserState) => state.pagination

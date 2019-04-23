@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserNewComponent } from './user-new/user-new.component';
 import { Observable } from 'rxjs';
-import { selectUserPagination, selectUserData } from '../../selectors/user.selector';
+import { selectUserPagination, selectUserData, selectLoading } from '../../selectors/user.selector';
 import { LoadUsers, ChangePageUsers } from '../../actions/user.actions';
 
 @Component({
@@ -20,6 +20,7 @@ export class UserComponent implements OnInit {
     pageSize: number;
   }>;
   user$: Observable<any>;
+  loading$: Observable<boolean>;
 
   constructor(
     private store: Store<any>,
@@ -27,6 +28,7 @@ export class UserComponent implements OnInit {
   ) {
     this.user$ = this.store.pipe(select(selectUserData));
     this.pagination$ = this.store.pipe(select(selectUserPagination));
+    this.loading$ = this.store.pipe(select(selectLoading));
   }
 
   ngOnInit() {

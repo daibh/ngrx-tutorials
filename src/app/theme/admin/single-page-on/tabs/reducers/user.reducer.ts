@@ -7,7 +7,8 @@ export interface UserState {
     totalRecord: number;
     page: number;
     pageSize: number;
-  }
+  },
+  isLoading: boolean,
   error?: any;
 }
 
@@ -16,7 +17,8 @@ export const initialState: UserState = {
     totalRecord: 0,
     page: 1,
     pageSize: 15
-  }
+  },
+  isLoading: false
 };
 
 export function userReducer(state = initialState, action: UserActions): UserState {
@@ -26,6 +28,7 @@ export function userReducer(state = initialState, action: UserActions): UserStat
       console.log('page: ', state.pagination);
       return {
         ...state,
+        isLoading: true,
         error: null
       };
     case UserActionTypes.LoadUsersSuccess:
@@ -33,12 +36,14 @@ export function userReducer(state = initialState, action: UserActions): UserStat
       console.log('aaaaa: ', action.payload.response);
       return {
         ...state,
-        users: users
+        users: users,
+        isLoading: false
       };
     case UserActionTypes.LoadUsersFailed:
       return {
         ...state,
-        error: action.payload.error
+        error: action.payload.error,
+        isLoading: false
       };
     case UserActionTypes.ChangePageUsers:
       return {
