@@ -1,0 +1,35 @@
+.pcoded {
+    display: flex;
+}
+
+.pcoded-inner-navbar {
+    display: flex;
+    .pcoded-navigation-label {
+        color: #777;
+        font-weight: bold;
+        padding: .5rem;
+    }
+    ul.pcoded-item.pcoded-left-item {
+        list-style-type: none;
+    }
+}
+
+.page-wrapper {
+    display: flex;
+    flex-grow: 1;
+    margin: 1.5rem;
+    position: relative;
+}
+
+.page-body {
+    display: flex;
+    flex-grow: 1;
+}
+
+ngb-tabset {
+    width: 100%;
+}
+
+:host ::ng-deep app-single-page-on {
+    width: 100%;
+}

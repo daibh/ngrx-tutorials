@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminComponent } from './layout/admin/admin.component';
 import { AuthComponent } from './layout/auth/auth.component';
+import { MenuItems } from './shared/menu-items/menu-items';
 
 @NgModule({
   imports: [
@@ -22,7 +23,10 @@ import { AuthComponent } from './layout/auth/auth.component';
     AppComponent,
     HelloComponent,
     AdminComponent,
-    AuthComponent
+    AuthComponent,
+  ],
+  providers: [
+    MenuItems
   ],
   bootstrap: [AppComponent]
 })

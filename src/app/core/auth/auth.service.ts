@@ -22,7 +22,7 @@ export class AuthService {
 
   authenticate(credentials: ICredentials): Observable<string> {
     // let param = {
-    //   email: `${credentials.username}@huudai.com`,
+    //   username: `${credentials.username}@huudai.com`,
     //   password: `${credentials.password}@niwa`,
     //   rememberMe: credentials.rememberMe
     // };
