@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, concatMap, switchMap } from 'rxjs/operators';
+import { LoadVendorFailed, LoadVendorSuccess, VendorActions, VendorActionTypes } from '../actions/vendor.actions';
+import { VendorService } from '../services/vendor.service';
 
-import { concatMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
-import { VendorActionTypes, VendorActions } from '../actions/vendor.actions';
 
 
 @Injectable()
@@ -12,12 +13,19 @@ export class VendorEffects {
 
   @Effect()
   loadVendors$ = this.actions$.pipe(
-    ofType(VendorActionTypes.LoadVendors),
-    /** An EMPTY observable only emits completion. Replace with your own observable API request */
-    concatMap(() => EMPTY)
+    ofType(VendorActionTypes.LoadVendor),
+    switchMap(() => this.service$.fetch().pipe(
+      concatMap((response) => [
+        new LoadVendorSuccess({ vendors: response })
+      ]),
+      catchError(error => of(new LoadVendorFailed({ error })))
+    ))
   );
 
 
-  constructor(private actions$: Actions<VendorActions>) {}
+  constructor(
+    private actions$: Actions<VendorActions>,
+    private service$: VendorService
+  ) { }
 
 }

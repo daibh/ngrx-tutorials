@@ -4,8 +4,10 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, mergeMap, switchMap, withLatestFrom, tap, map } from 'rxjs/operators';
 import { State } from '../../../admin.state';
-import { LoadListProductResponse, LoadProductListFailed, LoadProductListSuccess, ProductActions, ProductActionTypes, LoadProductList } from '../actions/product.actions';
+import { LoadListProductResponse, LoadProductListFailed, LoadProductListSuccess, ProductActions, ProductActionTypes, LoadProductList, LoadSaveProductSuccess, LoadSaveProductFailed } from '../actions/product.actions';
 import { ProductService } from '../services/product.service';
+import { LoadVendor } from '../actions/vendor.actions';
+import { LoadCategory } from '../actions/category.actions';
 
 
 
@@ -42,6 +44,27 @@ export class ProductEffects {
   changeSort$ = this.actions$.pipe(
     ofType(ProductActionTypes.LoadListProductSort),
     map((action) => new LoadProductList())
+  );
+
+  @Effect()
+  loadUpdateSource$ = this.actions$.pipe(
+    ofType(ProductActionTypes.LoadUpdateProduct),
+    mergeMap(() => [
+      new LoadVendor(),
+      new LoadCategory()
+    ])
+  );
+
+  @Effect()
+  loadSaveProduct$ = this.actions$.pipe(
+    ofType(ProductActionTypes.LoadSaveProduct),
+    switchMap((action) => this.service$.save(action.payload.product).pipe(
+      mergeMap((res) => [
+        new LoadSaveProductSuccess(res),
+        new LoadProductList()
+      ]),
+      catchError(error => of(new LoadSaveProductFailed({ error })))
+    ))
   );
 
 

@@ -7,7 +7,11 @@ export enum ProductActionTypes {
   LoadListProductResponse = '[Product] Load Respnose Products',
   LoadListProductPage = '[Product] Load Products Page',
   LoadListProductFilter = '[Product] Load Products Filter',
-  LoadListProductSort = '[Product] Load Products Sort'
+  LoadListProductSort = '[Product] Load Products Sort',
+  LoadUpdateProduct = '[Product] Load Update Product',
+  LoadSaveProduct = '[Product] Load Save Product',
+  LoadSaveProductSuccess = '[Product] Load Save Product Sucess',
+  LoadSaveProductFailed = '[Product] Load Save Product Failed',
 }
 
 export class LoadProductList implements Action {
@@ -44,6 +48,26 @@ export class LoadListProductSort implements Action {
   constructor(readonly payload: { sort: string }) { }
 }
 
+export class LoadUpdateProduct implements Action {
+  readonly type = ProductActionTypes.LoadUpdateProduct;
+  constructor(readonly payload: { product: any }) { }
+}
+
+export class LoadSaveProduct implements Action {
+  readonly type = ProductActionTypes.LoadSaveProduct;
+  constructor(readonly payload: { product: any }) { }
+}
+
+export class LoadSaveProductSuccess implements Action {
+  readonly type = ProductActionTypes.LoadSaveProductSuccess;
+  constructor(readonly payload: { response: any }) { }
+}
+
+export class LoadSaveProductFailed implements Action {
+  readonly type = ProductActionTypes.LoadSaveProductFailed;
+  constructor(readonly payload: { error: any }) { }
+}
+
 export type ProductActions =
   LoadProductList |
   LoadProductListSuccess |
@@ -51,5 +75,9 @@ export type ProductActions =
   LoadListProductResponse |
   LoadListProductPage |
   LoadListProductFilter |
-  LoadListProductSort
+  LoadListProductSort |
+  LoadUpdateProduct |
+  LoadSaveProduct |
+  LoadSaveProductSuccess |
+  LoadSaveProductFailed
   ;

@@ -12,7 +12,7 @@ export class VendorService {
     private injector: Injector
   ) { }
 
-  fetchOption(req?: { page: string }): Observable<any> {
-    return this.httpClient.get<any>(`${SERVER_API_URL}/${API_VENDORS_SELECT}`, { params: req });
+  fetch(): Observable<any> {
+    return this.httpClient.get<any>(`${SERVER_API_URL}/${API_VENDORS_SELECT}`);
   }
 }

@@ -1,5 +1,5 @@
 <div class="page-body">
-  <ngb-tabset [justify]="'start'" [activeId]="(activedTab$ | async)" (tabChange)="beforeChange($event)">
+  <ngb-tabset [justify]="'start'" [destroyOnHide]="false" [activeId]="(activedTab$ | async)" (tabChange)="beforeChange($event)">
     <ngb-tab [id]="tab.code" *ngFor="let tab of (tabMenu$ | async) as tabMenu">
       <ng-template ngbTabTitle>
         <span>{{ tab.name }}</span>

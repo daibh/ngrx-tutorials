@@ -1,0 +1,63 @@
+<form ngForm #updateForm="ngForm" (ngSubmit)="onSubmit($event)">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputName">Name</label>
+      <input type="text" class="form-control" id="inputName" name="name" [(ngModel)]="currentObj.name"
+        placeholder="Name" />
+    </div>
+    <div class="form-group">
+      <label for="inputDescription">Description</label>
+      <input type="text" class="form-control" id="inputDescription" name="description"
+        [(ngModel)]="currentObj.description" placeholder="Description" />
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputVendor">Vendor</label>
+        <select id="inputVendor" class="form-control" name="vendor_id" [(ngModel)]="currentObj.vendor_id">
+          <option selected>Choose...</option>
+          <option *ngFor="let item of (vendor$ | async)" [ngValue]="item.id">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputCategory">Category</label>
+        <select id="inputCategory" class="form-control" name="category_id" [(ngModel)]="currentObj.category_id">
+          <option selected>Choose...</option>
+          <option *ngFor="let item of (category$ | async)" [ngValue]="item.id">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputUnitPrice">Unit price</label>
+        <input type="text" class="form-control" id="inputUnitPrice" name="unit_price"
+          [(ngModel)]="currentObj.unit_price" placeholder="Unit price">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputSalePrice">Sale price</label>
+        <input type="text" class="form-control" id="inputSalePrice" name="sale_price"
+          [(ngModel)]="currentObj.sale_price" placeholder="Sale price">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputStatus">Status</label>
+        <select id="inputStatus" class="form-control" name="status" [(ngModel)]="currentObj.status">
+          <option [ngValue]="0">Deactive</option>
+          <option [ngValue]="1">Activate</option>
+          <option [ngValue]="2">Block</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</form>

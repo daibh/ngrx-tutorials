@@ -81,6 +81,28 @@ export function productReducer(state = initialState, action: ProductActions): Pr
         ...state,
         reqOption: newRequestOption
       };
+    case ProductActionTypes.LoadUpdateProduct:
+      return {
+        ...state,
+        product: action.payload.product
+      };
+    case ProductActionTypes.LoadSaveProduct:
+      return {
+        ...state,
+        product: action.payload.product
+      };
+    case ProductActionTypes.LoadSaveProductSuccess:
+      console.log('LoadSaveProductSuccess', action.payload.response);
+      return {
+        ...state,
+        product: null
+      };
+    case ProductActionTypes.LoadSaveProductFailed:
+      console.log('LoadSaveProductFailed', action.payload.error);
+      return {
+        ...state,
+        error: action.payload.error
+      };
     default:
       return state;
   }

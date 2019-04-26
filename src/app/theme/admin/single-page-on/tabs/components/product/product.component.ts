@@ -1,11 +1,13 @@
 import { Component, Directive, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isDefined } from 'src/app/shared/util/common.util';
 import { State } from 'src/app/theme/admin/admin.state';
-import { LoadListProductFilter, LoadListProductPage, LoadProductList, LoadListProductSort } from '../../actions/product.actions';
+import { LoadListProductFilter, LoadListProductPage, LoadProductList, LoadUpdateProduct } from '../../actions/product.actions';
 import { selectListLoading, selectListRequestOption, selectProductList } from '../../selectors/product.selector';
+import { ProductUpdateComponent } from './product-update/product-update.component';
 
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': 'asc', '': 'asc' };
@@ -40,7 +42,8 @@ export class NgbdSortableHeader {
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class ProductComponent implements OnInit {
 
@@ -52,8 +55,12 @@ export class ProductComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
-    private store$: Store<State>
+    private store$: Store<State>,
+    config: NgbModalConfig,
+    private modalService: NgbModal
   ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
     this.product$ = this.store$.pipe(select(selectProductList));
     this.requestOption$ = this.store$.pipe(select(selectListRequestOption));
     this.isListLoading$ = this.store$.pipe(select(selectListLoading));
@@ -84,7 +91,7 @@ export class ProductComponent implements OnInit {
     });
     console.log('{ column, direction }', { column, direction });
     const sort = `${column},${direction}`;
-    this.store$.dispatch(new LoadListProductSort({ sort }));
+    // this.store$.dispatch(new LoadListProductSort({ sort }));
   }
 
   isAsc = $columnName => this.headers.some(x => x.sortable === $columnName && x.direction === 'asc');
@@ -92,6 +99,14 @@ export class ProductComponent implements OnInit {
 
   onPageChange = $event => {
     this.store$.dispatch(new LoadListProductPage({ page: $event }));
+  }
+
+  onNewClick = $event => {
+    $event.preventDefault();
+    console.log('onNewClick');
+    this.store$.dispatch(new LoadUpdateProduct({ product: {} }));
+    const modalRef = this.modalService.open(ProductUpdateComponent, { size: "lg", container: '.tab-wrapper' });
+    modalRef.result.then(res => { }, err => { });
   }
 
 }

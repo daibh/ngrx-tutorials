@@ -1,8 +1,11 @@
 :host ::ng-deep .tab-content {
-    padding: 1rem;
+    // padding: 1rem;
     border: 1px solid #dee2e6;
     border-top: 0;
     min-height: 500px;
+}
+:host ::ng-deep .tab-content .tab-wrapper {
+    padding: 1rem;
 }
 :host ::ng-deep span.close {
     margin-left: .5rem;

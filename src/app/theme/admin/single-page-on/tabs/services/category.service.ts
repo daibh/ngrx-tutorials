@@ -12,7 +12,7 @@ export class CategoryService {
     private injector: Injector
   ) { }
 
-  fetchOption(req?: { page: string }): Observable<any> {
-    return this.httpClient.get<any>(`${SERVER_API_URL}/${API_CATEGORIES_SELECT}`, { params: req });
+  fetch(): Observable<any> {
+    return this.httpClient.get<any>(`${SERVER_API_URL}/${API_CATEGORIES_SELECT}`);
   }
 }

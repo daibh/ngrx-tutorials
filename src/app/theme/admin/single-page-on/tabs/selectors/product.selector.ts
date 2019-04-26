@@ -21,3 +21,8 @@ export const selectListRequestOption = createSelector(
     selectProduct,
     (state: ProductState) => state.reqOption
 );
+
+export const selectUpdateProduct = createSelector(
+    selectProduct,
+    (state: ProductState) => state.product
+);

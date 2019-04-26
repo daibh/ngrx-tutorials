@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, concatMap, switchMap } from 'rxjs/operators';
+import { CategoryActions, CategoryActionTypes, LoadCategoryFailed, LoadCategorySuccess } from '../actions/category.actions';
+import { CategoryService } from '../services/category.service';
 
-import { concatMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
-import { CategoryActionTypes, CategoryActions } from '../actions/category.actions';
 
 
 @Injectable()
@@ -12,12 +13,19 @@ export class CategoryEffects {
 
   @Effect()
   loadCategorys$ = this.actions$.pipe(
-    ofType(CategoryActionTypes.LoadCategorys),
-    /** An EMPTY observable only emits completion. Replace with your own observable API request */
-    concatMap(() => EMPTY)
+    ofType(CategoryActionTypes.LoadCategory),
+    switchMap(() => this.service$.fetch().pipe(
+      concatMap((response) => [
+        new LoadCategorySuccess({ categories: response })
+      ]),
+      catchError(error => of(new LoadCategoryFailed({ error })))
+    ))
   );
 
 
-  constructor(private actions$: Actions<CategoryActions>) {}
+  constructor(
+    private actions$: Actions<CategoryActions>,
+    private service$: CategoryService
+  ) { }
 
 }
