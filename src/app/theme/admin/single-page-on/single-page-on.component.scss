@@ -6,6 +6,7 @@
 }
 :host ::ng-deep .tab-content .tab-wrapper {
     padding: 1rem;
+    min-height: calc(100vh - 4.15rem);
 }
 :host ::ng-deep span.close {
     margin-left: .5rem;
