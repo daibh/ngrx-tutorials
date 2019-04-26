@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserNewComponent } from './user-new/user-new.component';
 import { Observable } from 'rxjs';
 import { selectUserPagination, selectUserData, selectLoading } from '../../selectors/user.selector';
@@ -9,7 +9,8 @@ import { LoadUsers, ChangePageUsers } from '../../actions/user.actions';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class UserComponent implements OnInit {
 
@@ -24,8 +25,11 @@ export class UserComponent implements OnInit {
 
   constructor(
     private store: Store<any>,
+    config: NgbModalConfig,
     private modalService: NgbModal
   ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
     this.user$ = this.store.pipe(select(selectUserData));
     this.pagination$ = this.store.pipe(select(selectUserPagination));
     this.loading$ = this.store.pipe(select(selectLoading));
@@ -37,7 +41,7 @@ export class UserComponent implements OnInit {
 
   doAddNew = ($event) => {
     $event.preventDefault();
-    const modalRef = this.modalService.open(UserNewComponent, { size: "lg" });
+    const modalRef = this.modalService.open(UserNewComponent, { size: "lg", container: '.tab-user' });
     modalRef.componentInstance.currentObj = new Object();
     modalRef.result.then(res => { }, err => { });
   }

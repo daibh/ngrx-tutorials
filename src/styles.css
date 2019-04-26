@@ -4,6 +4,8 @@
 
 .tab-content .modal-backdrop, .tab-content .modal {
     position: absolute;
-    width: 100%;
+    width: calc(100% - 30px);
     height: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
 }

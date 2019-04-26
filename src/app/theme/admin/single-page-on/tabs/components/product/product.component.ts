@@ -105,7 +105,7 @@ export class ProductComponent implements OnInit {
     $event.preventDefault();
     console.log('onNewClick');
     this.store$.dispatch(new LoadUpdateProduct({ product: {} }));
-    const modalRef = this.modalService.open(ProductUpdateComponent, { size: "lg", container: '.tab-wrapper' });
+    const modalRef = this.modalService.open(ProductUpdateComponent, { size: "lg", container: '.tab-product' });
     modalRef.result.then(res => { }, err => { });
   }
 
