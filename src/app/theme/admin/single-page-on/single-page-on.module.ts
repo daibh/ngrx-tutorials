@@ -7,6 +7,7 @@ import { UserComponent } from './tabs/components/user/user.component';
 import { UserNewComponent } from './tabs/components/user/user-new/user-new.component';
 import { NotificationComponent } from './tabs/components/notification/notification.component';
 import { OrganizationComponent } from './tabs/components/organization/organization.component';
+import { ProductComponent, NgbdSortableHeader } from './tabs/components/product/product.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { OrganizationComponent } from './tabs/components/organization/organizati
     SinglePageOnRoutingModule,
     SharedModule,
   ],
-  declarations: [SinglePageOnComponent, UserComponent, UserNewComponent, NotificationComponent, OrganizationComponent],
+  declarations: [SinglePageOnComponent, UserComponent, UserNewComponent, NotificationComponent, OrganizationComponent, ProductComponent, NgbdSortableHeader],
   entryComponents: [UserNewComponent]
 })
 export class SinglePageOnModule { }

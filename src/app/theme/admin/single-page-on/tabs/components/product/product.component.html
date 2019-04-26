@@ -1,0 +1,50 @@
+<form class="form-inline" ngForm #filterForm="ngForm" (ngSubmit)="onFilter()"
+  *ngIf="(requestOption$ | async) as reqOpt">
+  <div class="form-group">
+    <label for="inputName">Name</label>
+    <input type="text" id="inputName" class="form-control mx-sm-3" name="name" [(ngModel)]="reqOpt.query.name">
+  </div>
+  <div class="form-group">
+    <button type="submit">Search</button>
+  </div>
+</form>
+<ng-container *ngIf="!(product$ | async) || (isListLoading$ | async)">
+  Please wait a second.
+  <hr />
+  Loading ...
+</ng-container>
+<table class="table table-striped" *ngIf="(product$ | async) && !(isListLoading$ | async)">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" sortable="name" (sort)="onSort($event)" [class.asc]="isAsc('name')" [class.desc]="isDesc('name')">Name</th>
+      <th scope="col">Vendor</th>
+      <th scope="col">Category</th>
+      <th scope="col">Unit price</th>
+      <th scope="col">Sale price</th>
+      <th scope="col">Status</th>
+      <th scope="col">Created at</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of (product$ | async); let i = index">
+      <th scope="row">{{ i }}</th>
+      <th scope="col">{{ item.name }}</th>
+      <th scope="col">{{ item.vendor_id }}</th>
+      <th scope="col">{{ item.category_id }}</th>
+      <th scope="col">{{ item.unit_price }}</th>
+      <th scope="col">{{ item.sale_price }}</th>
+      <th scope="col">{{ item.status }}</th>
+      <th scope="col">{{ item.create_at }}</th>
+      <th scope="col">
+        CRUD
+      </th>
+    </tr>
+  </tbody>
+</table>
+<div class="d-flex justify-content-between p-2" *ngIf="(requestOption$ | async) as reqOpt">
+  <ngb-pagination *ngIf="reqOpt" [collectionSize]="reqOpt.total" [(page)]="reqOpt.page" [pageSize]="reqOpt.pageSize"
+    (pageChange)="onPageChange($event)">
+  </ngb-pagination>
+</div>

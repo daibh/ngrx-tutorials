@@ -1,0 +1,21 @@
+th[sortable] {
+    cursor: pointer;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+th[sortable].asc:before,
+th[sortable].desc:before {
+    content: '\f0de';
+    float: right;
+    margin-left: -22px;
+    font: normal normal normal 22px/1 FontAwesome;
+}
+
+th[sortable].desc:before {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+}

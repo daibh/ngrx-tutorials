@@ -6,6 +6,9 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminEffects } from './admin.effects';
 import { FEATURE_NAME, reducers } from './admin.state';
 import { UserEffects } from './single-page-on/tabs/effects/user.effects';
+import { CategoryEffects } from './single-page-on/tabs/effects/category.effects';
+import { VendorEffects } from './single-page-on/tabs/effects/vendor.effects';
+import { ProductEffects } from './single-page-on/tabs/effects/product.effects';
 
 @NgModule({
   imports: [
@@ -15,6 +18,9 @@ import { UserEffects } from './single-page-on/tabs/effects/user.effects';
     EffectsModule.forFeature([
       AdminEffects,
       UserEffects,
+      CategoryEffects,
+      VendorEffects,
+      ProductEffects
     ])
   ],
   declarations: [
