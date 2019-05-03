@@ -19,7 +19,9 @@ export enum AuthActionTypes {
   FETCH_ACCOUNT_MENU_ERROR = '[Menu] Fetch Error',
   TAB_ADD_OR_ACTIVE = '[Tab] Add or active tab',
   TAB_REMOVE = '[Tab] remove tab',
-  TAB_ACTIVE = '[Tab] Active tab'
+  TAB_ACTIVE = '[Tab] Active tab',
+  REQUIRE_CHANGE_PASSWORD = '[Auth] Require Change password',
+  CHANGE_PASSWORD =  '[Auth] Change password'
 }
 
 export class ActionAuthLogin implements Action {
@@ -96,6 +98,15 @@ export class ActionActiveTab implements Action {
   constructor(readonly payload: string) { }
 }
 
+export class ActionRequireChangePassword implements Action {
+  readonly type = AuthActionTypes.REQUIRE_CHANGE_PASSWORD;
+  constructor(readonly payload: {token: string}) { }
+}
+
+export class ActionChangePassword implements Action {
+  readonly type = AuthActionTypes.CHANGE_PASSWORD;
+}
+
 export type AuthActions =
   | ActionAuthLogin
   | ActionAuthLogout
@@ -111,4 +122,6 @@ export type AuthActions =
   | ActionLoginSuccess
   | ActionAddOrActiveTab
   | ActionRemoveTab
-  | ActionActiveTab;
+  | ActionActiveTab
+  | ActionRequireChangePassword
+  | ActionChangePassword;

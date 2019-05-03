@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { AppState } from '../core.state';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { ActionAuthenticate, ActionAuthenticateError, ActionAuthenticateSuccess, ActionAuthLogin, ActionAuthLogout, ActionFetchAccount, ActionFetchAccountError, ActionFetchAccountMenu, ActionFetchAccountMenuError, ActionFetchAccountMenuSuccess, ActionFetchAccountSuccess, ActionLoginSuccess, AuthActionTypes, ActionAddOrActiveTab, ActionRemoveTab } from './auth.actions';
+import { ActionAuthenticate, ActionAuthenticateError, ActionAuthenticateSuccess, ActionAuthLogin, ActionAuthLogout, ActionFetchAccount, ActionFetchAccountError, ActionFetchAccountMenu, ActionFetchAccountMenuError, ActionFetchAccountMenuSuccess, ActionFetchAccountSuccess, ActionLoginSuccess, AuthActionTypes, ActionAddOrActiveTab, ActionRemoveTab, ActionChangePassword, ActionRequireChangePassword } from './auth.actions';
 import { AuthService } from './auth.service';
 import { AUTH_KEY, AUTH_TOKEN, AUTH_ACCOUNT, AUTH_MENU, AUTH_TABS } from './auth.constants';
 import { MainMenuItems } from '../../shared/menu-items/menu-items';
@@ -51,16 +51,42 @@ export class AuthEffects {
       ofType<ActionAuthenticate>(AuthActionTypes.AUTHENTICATE),
       exhaustMap((action: ActionAuthenticate) =>
         this.service.authenticate(action.payload.credentials).pipe(
-          mergeMap(token => [
-            new ActionAuthenticateSuccess({ token }),
-            new ActionFetchAccount(),
-            new ActionFetchAccountMenu(),
-            new ActionLoginSuccess()
-          ]),
+          withLatestFrom(this.store.select(state => state.auth.mustChangePassword)),
+          map(([token, mustChangePassword]) => {
+            if (mustChangePassword) {
+              return new ActionRequireChangePassword({ token: token });
+            } else {
+              return mergeMap(() => [
+                new ActionAuthenticateSuccess({ token: token }),
+                new ActionFetchAccount(),
+                new ActionFetchAccountMenu(),
+                new ActionLoginSuccess()
+              ]);
+            }
+          }),
           catchError(error => of(new ActionAuthenticateError({ error })))
         )
       )
     );
+
+  @Effect({ dispatch: false })
+  requireChangePassword = () => this.actions$.pipe(
+    ofType<ActionRequireChangePassword>(AuthActionTypes.REQUIRE_CHANGE_PASSWORD),
+    tap(() => {
+      this.router.navigate(['auth', 'forgot']);
+    })
+  )
+
+  @Effect()
+  changePassword = () => this.actions$.pipe(
+    ofType<ActionChangePassword>(AuthActionTypes.CHANGE_PASSWORD),
+    tap(() => this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: true })),
+    mergeMap((token) => [
+      new ActionFetchAccount(),
+      new ActionFetchAccountMenu(),
+      new ActionLoginSuccess()
+    ])
+  )
 
   @Effect()
   fetchAccount = () =>

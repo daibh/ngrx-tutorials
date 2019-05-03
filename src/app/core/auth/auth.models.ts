@@ -13,6 +13,7 @@ export interface AuthState {
   menu?: MainMenuItems[];
   tabs?: MainMenuItems[];
   tab?: string;
+  mustChangePassword?: boolean;
 }
 
 export interface AuthenticateResponse {

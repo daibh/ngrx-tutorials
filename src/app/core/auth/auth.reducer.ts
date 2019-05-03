@@ -4,7 +4,8 @@ import { AuthState } from './auth.models';
 
 export const initialState: AuthState = {
   isAuthenticated: false,
-  loading: false
+  loading: false,
+  mustChangePassword: true
 };
 
 export function authReducer(
@@ -128,6 +129,18 @@ export function authReducer(
       return {
         ...state,
         tab: action.payload
+      };
+    case AuthActionTypes.REQUIRE_CHANGE_PASSWORD:
+      return {
+        ...state,
+        loading: false
+      };
+    case AuthActionTypes.CHANGE_PASSWORD:
+      return {
+        ...state,
+        isAuthenticated: true,
+        mustChangePassword: false,
+        loading: false
       };
     default:
       return { ...state };

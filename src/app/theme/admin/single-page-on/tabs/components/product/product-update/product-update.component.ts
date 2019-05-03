@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -6,7 +6,7 @@ import { State } from 'src/app/theme/admin/admin.state';
 import { selectCategories } from '../../../selectors/category.selector';
 import { selectUpdateProduct } from '../../../selectors/product.selector';
 import { selectVendors } from '../../../selectors/vendor.selector';
-import { LoadSaveProduct } from '../../../actions/product.actions';
+import { LoadSaveProduct, LoadProductList } from '../../../actions/product.actions';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -30,6 +30,7 @@ export class ProductUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.store$.pipe(select(selectUpdateProduct)).subscribe(product => this.currentObj = Object.assign({}, product));
+    setTimeout(() => this.store$.dispatch(new LoadProductList()), 0);
   }
 
   onSubmit = $event => {

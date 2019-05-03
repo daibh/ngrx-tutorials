@@ -7,7 +7,7 @@ export class LocalStorageService {
   constructor() {}
 
   static loadInitialState() {
-    return Object.keys(localStorage).reduce((state: any, storageKey) => {
+    return Object.keys(localStorage).sort((b, a) => b.length - a.length).reduce((state: any, storageKey) => {
       if (storageKey.includes(APP_PREFIX)) {
         const stateKeys = storageKey
           .replace(APP_PREFIX, '')

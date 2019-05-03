@@ -36,7 +36,7 @@ export class AuthService {
       if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
         jwt = bearerToken.slice(7, bearerToken.length);
       }
-      this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: true });
+      // this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: false });
       this.localStorageService.setItem(AUTH_TOKEN, jwt);
       // const countDown = setInterval(() => {
       //   console.log('countdount: ', parseJwt(jwt).exp * 1000 - Date.now());
