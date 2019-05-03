@@ -56,12 +56,7 @@ export class AuthEffects {
             if (mustChangePassword) {
               return new ActionRequireChangePassword({ token: token });
             } else {
-              return mergeMap(() => [
-                new ActionAuthenticateSuccess({ token: token }),
-                new ActionFetchAccount(),
-                new ActionFetchAccountMenu(),
-                new ActionLoginSuccess()
-              ]);
+              return new ActionChangePassword();
             }
           }),
           catchError(error => of(new ActionAuthenticateError({ error })))
