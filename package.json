@@ -20,7 +20,7 @@
     "core-js": "2.6.5",
     "font-awesome": "4.7.0",
     "jquery": "3.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ngrx-store-freeze": "^0.2.4",
     "popper.js": "1.15.0",
     "rxjs": "6.5.1",
